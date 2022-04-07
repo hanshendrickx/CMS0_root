@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os # needed after media files part
 
 from pathlib import Path
 
@@ -45,7 +46,10 @@ INSTALLED_APPS = [
     'menus',
     'treebeard',
     # extra
-    'sekizai'
+    'sekizai',
+    'filer',
+    'easy_thumbnails',
+    'mptt',
 ]
 
 SITE_ID = 1
@@ -78,6 +82,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
+        'DIRS': ['templates'],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -90,6 +95,10 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+CMS_TEMPLATES = [
+    ('home.html', 'Home page template'),
 ]
 
 WSGI_APPLICATION = 'cms0.wsgi.application'
@@ -124,6 +133,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters'
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -155,3 +173,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
