@@ -77,10 +77,13 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ROOT_URLCONF = 'cms0.urls'
 
+CMS_TEMPLATES = [
+    ('home.html', 'Home page template'),
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
         'APP_DIRS': True,
         'DIRS': ['templates'],
         'OPTIONS': {
@@ -97,9 +100,7 @@ TEMPLATES = [
     },
 ]
 
-CMS_TEMPLATES = [
-    ('home.html', 'Home page template'),
-]
+
 
 WSGI_APPLICATION = 'cms0.wsgi.application'
 
@@ -139,7 +140,7 @@ THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
     'easy_thumbnails.processors.autocrop',
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
-    'easy_thumbnails.processors.filters'
+    'easy_thumbnails.processors.filters',
 )
 
 
@@ -175,4 +176,5 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = "/media/"
+
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
